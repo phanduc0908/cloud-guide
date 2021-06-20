@@ -6,6 +6,9 @@ module.exports = {
     smoothScroll: true,
     searchPlaceholder: 'Tìm kiếm...',
     displayAllHeaders: true,
+    head: [
+      ['link', { rel: 'icon', href: '/icon.png' }]
+    ],
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Developer', link: '/developer/' },
