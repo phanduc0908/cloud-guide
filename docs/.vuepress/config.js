@@ -1,14 +1,12 @@
 module.exports = {
   title: 'Cloud Guide',
   description: 'Just playing around cloud',
+  head: [['link', { rel: 'icon', href: `/icons/icon.png` }]],
   themeConfig: {
     sidebarDepth: 3,
     smoothScroll: true,
     searchPlaceholder: 'Tìm kiếm...',
     displayAllHeaders: true,
-    head: [
-      ['link', { rel: 'icon', href: '/icon.png' }]
-    ],
     nav: [
       { text: 'Home', link: '/' },
       { text: 'Developer', link: '/developer/' },
