@@ -2,6 +2,7 @@ module.exports = {
   title: 'Cloud Guide',
   description: 'Just playing around cloud',
   head: [['link', { rel: 'icon', href: `/icons/icon.png` }]],
+  plugins: ['@vuepress/last-updated'],
   themeConfig: {
     sidebarDepth: 3,
     smoothScroll: true,
