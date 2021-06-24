@@ -49,3 +49,53 @@
 - **Elastic IP address** mà ko assign cho instance nào| hoặc instance stopped, Amazon sẽ tính phí theo giờ vì lẵng phí. Amazon sẽ không tính phí nếu nó được assign cho instance running
 - Không thể dùng chung 1 Elastic IP address ở regions khác nhau
 :::
+
+## Security
+::: tip
+  - Amazon cung cấp 2 features để bảo mật(network security) và theo dõi(monitoring)
+  - **Security group and NACL** dùng cho network security, **Flow logs** cho network monitoring
+  - **Security group** hoạt động như firewall level của EC2
+  - **NACL - Network Access Control Lists** hoạt động như firewall level của subnet
+  - **Flow logs** cung cấp thông tin về network traffic
+:::
+<img :src="('/images/security-diagram.png')" alt="VPC security">
+
+### Security group
+::: tip Notes
+- Mỗi security group cps tối đa 50 rules inbound vad outbound
+- Tối đa có 5 security group được attach cho 1 instance
+- Một security group có thể attach cho nhiều hơn 1 EC2 instance
+- Trong trường hợp nhiều rule tương đồng apply cho EC2 instance thì rule nào rộng hơn sẽ được apply. Ví du:
+  + Rule 1: cho phép giao tiếp trên TCP port 22 từ IP: 10.115.53.222
+  + Rule 2: cho phép giao tiếp trên TCP port 22 từ mợi nơi (0.0.0.0)
+  + => Rule 2 (Cho phép truy cập từ mọi nơi) sẽ được apply
+- Khi 1 rule nào được thay đổi, ngay lập tức được apply real-time
+- Mặc định, khi security group mới được tạo, nó sẽ **block tất cả incomming communication** và **cho phép tất cả outgoing communication**
+- Chỉ có thể allow rule, không thể denied rule
+- **Stateful**, có nghĩa là những traffic được allowed ở inbound thì cũng tự động được allowed ở outbound. Vì thế ko cần đặt outbound rule nến rule đó đã được định nghĩa ở inbound
+:::
+### Network ACLs (NACLs)
+::: tip Notes
+- Mỗi subnet trong VPC được liên kết với ít nhất 1 NACLs, mặc định khi tạo mới VPC sẽ tự động tạo 1 NACLs
+- VPC, NACLs mặc định sẽ allow tất cả traffic inbound và outbound
+- Bạn cũng có thể tạo 1 custome NACLs, nhưng mặc định nó sẽ block tất cả inbound/outbound cho đến khi thêm rule mới
+- NACL có thế gán tới nhiều subnet, tuy nhiên 1 subnet chỉ có thể được gán bởi 1 NACL ở 1 thời điểm. Khi bạn gán với 1 NACL mới, những cái cũ sẽ bị gỡ bỏ.
+- Một network ACL chứa 1 danh sách các quy tắc được đánh số. Bắt đầu bởi rule có số nhỏ nhất, để xác định lưu lượng mạng đươc cho phép ra vào. Số lớn nhất mà bạn có thể sử dụng cho 1 rule là **32766**
+- NACL phân biệt rõ inbound, outbound rule. Ban có thể allow hay denied rule
+-  **Stateless**, 
+:::
+### Security group vs NACL
+<img :src="('/images/compare-nacl-sg.png')" alt="VPC security">
+
+### Flow logs
+::: danger Review lai
+Xem lại
+:::
+
+## VPC networking components
+
+### ENI
+
+### Route table
+
+### IGW
