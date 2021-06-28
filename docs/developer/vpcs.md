@@ -82,9 +82,9 @@
 - NACL có thế gán tới nhiều subnet, tuy nhiên 1 subnet chỉ có thể được gán bởi 1 NACL ở 1 thời điểm. Khi bạn gán với 1 NACL mới, những cái cũ sẽ bị gỡ bỏ.
 - Một network ACL chứa 1 danh sách các quy tắc được đánh số. Bắt đầu bởi rule có số nhỏ nhất, để xác định lưu lượng mạng đươc cho phép ra vào. Số lớn nhất mà bạn có thể sử dụng cho 1 rule là **32766**
 - NACL phân biệt rõ inbound, outbound rule. Ban có thể allow hay denied rule
--  **Stateless**, 
+-  **Stateless**, có nghĩa là những traffic được allowed ở inbound thì KHÔNG tự động được allowed ở outbound
 :::
-### Security group vs NACL
+### Comparison Security group vs NACL
 <img :src="('/images/compare-nacl-sg.png')" alt="VPC security">
 
 ### Flow logs
@@ -108,5 +108,18 @@ Xem lại
 > Khi 1 instance EC2 được tạo trong VPC, nó sẽ tự động tạo 1 Network Interface và attach vào EC2. NI(Network interface) default này là *primate network interface*, và ko thể detach NI này. Tuy nhiên, bạn có thể tạo thêm 1 NI khác được gọi là *secondary network interfaces*, NI này có thể detach hay atach vào instance khác
 ### Route table
 > *Route tables* chứa những rules giúp định tuyến network traffic
+- Mỗi VPC cần có 1 Route table, nó không thể bị xóa đi, chỉ có thể modify
+### IGW (Internet Getway)
+> **Internet Getway** giúp EC2 instances có thể giao tiếp ra ngoài internet
+::: tip
+- Nếu 1 subnet được liên kết với route table và routed đến 1 IGW thì đó là *public subnet*
+- Ngược lại, nếu 1 subnet được liên kết trong route table và không routed đến IGW thì đó là *private subnet*
+:::
+### Egress-only IGW
+::: tip
+- Chỉ làm việc với IPv6
+- Cho phép resource connect ra bên ngoài internet, nhưng prevent bên ngoài internet connect với resource bên trong subnet hay VPC
+:::
+<img :src="('/images/egress-only-igw.png')" alt="egress-only">
 
-### IGW
+## NAT (Network Address Translation)
