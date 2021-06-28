@@ -93,9 +93,20 @@ Xem lại
 :::
 
 ## VPC networking components
-
-### ENI
-
+### ENI (Elastic Network Intefaces)
+::: tip
+- ENI đại diện như 1 card mạng ảo (*virtual network card*)
+- Thuộc tính chính của ENI:
+  + 1 primary private IPv4 trong range IP của VPC/subnet
+  + 1 hay nhiều secondary private IPv4 trong range IP của VPC/subnet
+  + 1 Elastic IP address (IPv4) per private IPv4 address
+  + 1 public IPv4 address
+  + 1 hay nhiều IPv6 addresses
+  + 1 hay nhiều security group
+  + 1 MAC address (Media Access Control)
+:::
+> Khi 1 instance EC2 được tạo trong VPC, nó sẽ tự động tạo 1 Network Interface và attach vào EC2. NI(Network interface) default này là *primate network interface*, và ko thể detach NI này. Tuy nhiên, bạn có thể tạo thêm 1 NI khác được gọi là *secondary network interfaces*, NI này có thể detach hay atach vào instance khác
 ### Route table
+> *Route tables* chứa những rules giúp định tuyến network traffic
 
 ### IGW
