@@ -12,6 +12,7 @@ module.exports = {
       { text: 'Home', link: '/' },
       { text: 'Developer', link: '/developer/' },
       { text: 'Solutions Architect', link: '/solutions-architect/' },
+      { text: 'FAQs', link: '/faqs/'},
       { text: 'About me', link: 'https://github.com/phanduc0908' }
     ],
     sidebar: {
@@ -30,6 +31,9 @@ module.exports = {
         'serverless'
       ],
       '/solutions-architect/': [
+        ''
+      ],
+      '/faqs/': [
         ''
       ]
     },
