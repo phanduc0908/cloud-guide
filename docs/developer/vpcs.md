@@ -123,3 +123,25 @@ Xem lại
 <img :src="('/images/egress-only-igw.png')" alt="egress-only">
 
 ## NAT (Network Address Translation)
+::: tip Cở chế hoạt động
+Khi các resources trong private subnet muốn request ra bên ngoài internet(VD: npm install package), **NAT** sẽ thay đổi IP private của tài nguyên thành IP của mình và request ra ngoài internet. Khi có response NAT sẽ gửi lại response cho private IP của resource tương ứng. Đó là cách để resources trong private subnet có thể giao tiếp ra bên ngoài internet
+:::
+Có 2 kiểu NAT devices:
+- **NAT getway**: được quản lý bởi AWS
+- **NAT instance**: Tự mình tạo trên EC2 instance, gọi là NAT instance
+NAT devices không support IPv6, vì vậy nếu bạn cần dùng IPv6 cho EC2 instance, bạn cần dùng egress-only IGW
+### NAT getway
+> NAT gateway dùng để instances trong private subnet có thể connect với services bên ngoài VPC, nhưng ko tạo kết nối giữa instances và services đó
+Khi tạo mới NAT getway có 2 loại kết nối:
+- **Public(default)**: 
+  + Có thể connect ra bên ngoài internet
+  + Phải allocated Elastic IP
+- **Private**: 
+  + Có thể connect với VPC khác, không thể connect internet. Nếu IGW attach vào *private NAT* thì connection đó cũng sẽ bị drop
+  + Không cần allocated Elastic IP
+### NAT instance
+- Là instance giống EC2
+### Comparison NAT instance and NAT getway
+::: tip
+NAT getway được managed bởi AWS, vì vậy được recommended sử dụng hơn là NAT instance (managed bởi bạn). NAT getway better avaiability và bandwidth cao hơn NAT instance (vì NAT instance còn dựa vào EC2 type)
+:::
