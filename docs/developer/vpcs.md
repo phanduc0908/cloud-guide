@@ -1,4 +1,6 @@
-# Virtual private cloud
+# VPC
+> Virtual private cloud 
+
 > Đầu tiên cần hiểu về một vài concepts về network :tada: :grin: :grin:
   - Khi 2 hay nhiều máy tính liên kết, giao tiếp với nhau được gọi là **network**
   - Resources trong network được chia nhỏ ra theo cách thành phần logic được gọi là **subnets**

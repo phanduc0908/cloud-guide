@@ -1,4 +1,4 @@
-# Overview of AWS Certified Developer
+# Overview of AWS
 ::: tip
  - Thời gian thi: **130 phút**
  - Số lượng câu hỏi: **65 câu**

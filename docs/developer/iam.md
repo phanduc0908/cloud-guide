@@ -1,5 +1,5 @@
-# Identify and Access Management
-
+# IAM
+> Identify and Access Management
 ::: tip
 Mỗi tổ chức sử dụng IT service đều có nhiều resources, projects... 
 Tuy nhiên không phải ai cũng có thể truy cập được tất cả ngoại trừ người có quyền cao nhất.
