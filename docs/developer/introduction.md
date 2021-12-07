@@ -6,13 +6,13 @@
 - **AWS Management Console**: Truy cập từ giao diện (website của AWS)
 - **AWS Comand Line Interface(CLI)**
 - **AWS Software Development Kits (SDKs)**: Kết hợp với các language khác để phát triển (NodeJS...)
-- **Query APIs**: AWS cung cấp mội số endpoint để access vào AWS
+
 
 ## AWS global infrastructure
   > AWS cung cấp dịch vụ trên cơ sở hạ tầng toàn cầu của họ. Cần làm quen với 2 khái niệm là **Regions** và **Availability Zones (AZs)**
 ### Regions and AZs
   ::: tip Regions
-  Mỗi **Regions** là collection của ít nhất 2 AZs. Mỗi regions độc lập với các region khác để đảm bảo an toàn khi có thiên tai xảy ra.
+  Mỗi **Regions** là collection của (min 2 AZs, max 6 AZs, **thường là 3**). Mỗi regions độc lập với các region khác để đảm bảo an toàn khi có thiên tai xảy ra.
   :::
   ![Regions](https://s3-us-west-1.amazonaws.com/corpinfowebsiteuploads/content/uploads/2016/04/25051531/AWS-Global-Infrastructure.jpg)
   ::: tip AZs
