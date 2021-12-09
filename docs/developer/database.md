@@ -63,3 +63,43 @@ NOTES:
   + Tạo 1 snapshot
   + DB mới được restored từ snapshot sang AZ mới
   + Synchronyze giữa 2 DB
+
+## RDS Security - Encryption
+### Encryption of Data at Rest
+Có thể hiểu là encrypt khi tạo DB lần đầu tiên
+- Trong khi tạo RDS lần đầu tiên, bạn có thể enable option (xử dụng KMS)
+- un-encryption DB => Snapshot => copy snapshot as encrypted => Tạo DB từ snapshot
+- **Nếu master KHÔNG được encrypt thì read replicas cũng KHÔNG được encrypt**
+
+### Encryption of Data in Transit
+Ecrypt khi giao tiếp giữa DB và Application bằng cách sử dụng SSL/TLS
+
+### Access controll
+Sử dụng IAM để quản lý việc truy cập Database Resource của bạn
+
+
+## Amazon Aurora
+Là công nghệ AWS phát triển được tương thích với MySQL và PostgreSQL
+- Cả Postgres và MySQL đều được support bởi Aurora DB (Có nghĩa là driver vẫn hoạt động nếu Aurora là Postgres hay MySQL database)
+- Aurora là "AWS Cloud optimized", được cho rằng x5 performance so với MySQL trên RDS, x3 Postgres
+- Aurora tự động scal storage, bạn không cần phải lo nghĩ đến việc monitor storage
+- Aurora có 15 replicas (MySQL có 5)
+- Cost cao hơn RDS ~20%
+
+### Aurora High Availability và Read Scaling
+![](https://docs.aws.amazon.com/zh_tw/AmazonRDS/latest/AuroraUserGuide/images/AuroraArch001.png)
+- 6 bản copies dữ liệu của bạn cross 3 AZ
+- 1 Aurora instance take write (master)
+- Tự động phục hội < 30s nếu master bị lỗi hay có vấn đề
+- Master + upto 15 replicas (for read)
+- Hỗ trợ cross Region
+
+### Aurora DB Cluster
+![](https://miro.medium.com/max/1100/1*2_cCgfIV0fuBIDSNTcMmQg.png)
+Như hình vẽ:
+- Cluster volume là 1 "Shared storage volume" có thể expand từ 10G => 64TB
+- Cluster endpoint (Writer enpoint) point đến master
+- Read enpoint point đến connection Load Balancing các Replicas
+
+## Aurora security
+Tương tự với RDS
