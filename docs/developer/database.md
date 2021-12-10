@@ -101,5 +101,51 @@ Như hình vẽ:
 - Cluster endpoint (Writer enpoint) point đến master
 - Read enpoint point đến connection Load Balancing các Replicas
 
-## Aurora security
+### Aurora security
 Tương tự với RDS
+
+### Aurora advanced concepts
+#### Aurora Replicas - Auto scaling
+![](https://image.slidesharecdn.com/trainingaws-module8-rdsauroraelasticache-210907145521/95/training-aws-module-8-rds-aurora-elasticache-21-638.jpg?cb=1631026831)
+
+Khi có nhiều request đến Reader Endpoint dẫm đến việc DB instance tăng CPU usage, do đó cần setup Replicas Auto Scaling. Read Endpoint cũng sẽ tự động extend để cover Replicas mới
+
+#### Aurora Replicas - Custom Endpoint
+![](https://www.icode9.com/i/l/?n=20&i=blog/364241/202108/364241-20210802210955333-624922716.png)
+
+Ví dụ như trên hình vẽ, chúng ta có thể tạo ra 2 Custom Endpoint cho DB.rc3 và DB.rc5. Khi request cần cấu hình cao sẽ dùng endpoint của DB.rc5 nếu thấp hơn thì sẽ dùng endpoint của DB.rc3.
+#### Aurora Replicas - Serverless
+- Tự động scaling dự trên lượng sử dụng thực tế
+- Phù hợp với ứng dụng không thường xuyên, hoặc không biết trước được workload
+- Không cần có plan về capacity
+- Giá cả trả theo giây sử dụng
+
+#### Aurora Replicas - Multi-Master
+- Trong trường hợp bạn muốn ngay lập tức chuyển đổi dự phòng (failover) cho writer node (HA)
+- Các Read Replicas tự động promote lên Master
+
+#### Global Aurora
+![](https://docs.aws.amazon.com/AmazonRDS/latest/AuroraUserGuide/images/aurora-global-databases-conceptual-illo.png)
+- **Aurora Cross Region Read Replicas**
+  + Hữu ích cho Disaster Recovery (DR)
+- Aurora Global Database
+  + 1 primary Region (read/write)
+  + Up to 5 secondary (**read-only**) region, replication lag < 1s
+  + Up to 16 Read Replicas/ mỗi secondary region
+  + Giảm thiểu độ trễ
+  + Khi có vấn đề ở Primary region, tự động promote region khác với RTO < 1minutes (Recovery Time Objective)
+
+
+## Amazon ElasticCache
+- Elasticache là dịch vụ bộ nhớ đệm được quản lý dành cho Redis và Memcached
+- Giúp giảm thiểu thời gian load dữ liệu, vì load từ cache chắc chắn sẽ nhanh hơn
+![](https://d1.awsstatic.com/Getting%20Started/Boosting%20Database%20Performance/image001.0660c8da047acc2702ca49a548d4721101f7dd38.png)
+
+### Phân biệt Redis (Remote Dictionary Server) và Memcached
+- REDIS:
+  + Read Replicas để scale việc đọc, high avaiability
+  + có tính năng Backup và restore
+- MEMCACHED:
+  + Multi-node cho việc phân vùng data, cho phép mở rộng thêm dữ liệu khi nhu cầu tăng lên
+  + Memcache không có tính persis. Tức là một khi xóa là xóa hẳn, không có backup
+  + Multi-thread
